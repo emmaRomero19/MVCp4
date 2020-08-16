@@ -1,19 +1,15 @@
 import web
+import mvc.model.model as alumnos
+
+model_alumno = alumnos.Alumnos()
+
 render=web.template.render('mvc/views/alumnos/')
 
 class View:
-    def GET(self):
+    def GET(self, id_persona):
         try: 
-            data=web.input()
-            matricula=data['matricula']
-            name=data['name']
-            paterno=data['paterno']
-            materno=data['materno']
-            edad=data['edad']
-            fecha=data['fecha']
-            genero=data['genero']
-            state=data['state']
-            return render.viewOne(matricula,name,paterno,materno,edad,fecha,genero,state)
+            result=model_alumno.view(id_persona)
+            return render.viewOne(result)
         except Exception as e:
             result=[]    
             result.append('error'+ str(e.args))
