@@ -69,9 +69,24 @@ class Alumnos():
             print("Error View: ", e)
             result=[]
             return result
+    
+    def insert(self, matricula, nombre, ap_paterno, ap_materno,edad, fecha_nac, genero, estado):
+        try:
+            self.connect()
+            query=('INSERT INTO alumnos (matricula, nombre, ap_paterno, ap_materno, edad, fecha_nac, genero, estado) values(%s, %s, %s, %s, %s, %s, %s, %s)')
+            val_tupla=(matricula, nombre, ap_paterno, ap_materno, edad, fecha_nac, genero, estado)
+            self.cursor.execute(query, val_tupla)
+            self.cnx.commit()
+            self.cursor.close()
+            self.cnx.close()
+            return True
+        except Exception as e:
+            print("Error Insert: ", e)
+            result=[]
+            return result
+    
 
 objeto=Alumnos()
 objeto.connect()
-
-for row in objeto.view(2):
+for row in objeto.select():
     print(row)

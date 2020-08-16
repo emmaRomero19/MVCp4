@@ -1,4 +1,8 @@
 import web
+import mvc.model.model as alumnos
+
+model_alumno = alumnos.Alumnos()
+
 render=web.template.render('mvc/views/alumnos/')
 
 class Insert:
@@ -20,7 +24,8 @@ class Insert:
             fecha=str(data.fecha)
             genero=str(data.genero)
             state=str(data.state)
-            return render.list(matricula,name,paterno,materno,edad,fecha,genero,state)
+            model_alumno.insert(matricula,name,paterno,materno, edad, fecha, genero, state)
+            web.seeother('/list')
         except Exception as e:
             result=[]    
             result.append('error'+ str(e.args))
